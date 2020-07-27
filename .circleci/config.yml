@@ -17,5 +17,4 @@ jobs:
       - run:
           name: Build Docker image
           command:
-            cd amazon-vpc-cni-k8s |
-            make docker
+            cd amazon-vpc-cni-k8s && make docker
