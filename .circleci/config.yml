@@ -3,12 +3,19 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@0.10.1
 
-workflows:
-  test:
-    jobs:
-      - architect/go-test:
-          name: go-test
-          filters:
-            # Trigger job also on git tag.
-            tags:
-              only: /^v.*/
+jobs:
+  build:
+    machine:
+      image: "ubuntu-1604:201903-01"
+    steps:
+      - checkout
+      - run:
+          name: Clone upstream repository
+          command:
+            export UPSTREAM_TAG=v1.7.0-rc1
+            git clone -b $(UPSTREAM_TAG) --depth 1 https://github.com/aws/amazon-vpc-cni-k8s.git
+      - run:
+          name: Build Docker image
+          command:
+            cd amazon-vpc-cni-k8s
+            make docker
