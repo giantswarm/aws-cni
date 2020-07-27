@@ -31,8 +31,10 @@ jobs:
             docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
 
 workflows:
-  my-workflow:
+  version: 2
+  build-and-push:
     jobs:
+      - build
       - architect/push-to-docker:
           context: "architect"
           name: "push-to-quay"
