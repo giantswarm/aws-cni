@@ -20,14 +20,10 @@
       [![GoDoc](https://godoc.org/github.com/giantswarm/REPOSITORY_NAME?status.svg)](http://godoc.org/github.com/giantswarm/REPOSITORY_NAME)
 
 -->
-[![CircleCI](https://circleci.com/gh/giantswarm/template.svg?style=shield&circle-token=cbabd7d13186f190fca813db4f0c732b026f5f6c)](https://circleci.com/gh/giantswarm/template)
 
-# REPOSITORY_NAME
 
-This is a template repository containing some basic files every repository
-needs.
+# Build automation for AWS CNI
 
-To use it just hit `Use this template` button or [this
-link][generate].
+This repository is used to have reproducible builds of Docker images based on 
 
-[generate]: https://github.com/giantswarm/template/generate
+https://github.com/aws/amazon-vpc-cni-k8s
