@@ -7,7 +7,7 @@ jobs:
     environment:
 
       # Set this to the upstream version tag to use/build
-      UPSTREAM_TAG: v1.7.0-rc1
+      UPSTREAM_TAG: v1.6.3
 
     steps:
       - checkout
