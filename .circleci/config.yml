@@ -38,9 +38,9 @@ jobs:
             docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
       
       - run:
-          name: Docker push release (only for tagged release based on master)
+          name: Docker push release (only for a tagged release)
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ] && [ ! -z "${CIRCLE_TAG}" ]
+            if [ ! -z "${CIRCLE_TAG}" ] && [ -z "${CIRCLE_BRANCH}" ]
             then
                 docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
                 docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
