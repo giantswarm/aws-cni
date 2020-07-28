@@ -29,21 +29,24 @@ jobs:
           name: Tag the image according to Giant Swarm convention
           command:
             docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+  
+      - run:
+          name: Docker login
+          command:
+            echo -n "${QUAY_PASSWORD}" | docker login --username "${QUAY_USERNAME}" --password-stdin "$(echo -n 'quay.io/giantswarm/aws-cni' | cut -d/ -f1)"
 
-workflows:
-  version: 2
-  build-and-push:
-    jobs:
-      - build
-      - architect/push-to-docker:
-          context: "architect"
-          name: "push-to-quay"
-          image: "quay.io/giantswarm/aws-cni"
-          username_envar: "QUAY_USERNAME"
-          password_envar: "QUAY_PASSWORD"
-          requires:
-            - build
-          filters:
-            # Trigger job also on git tag.
-            tags:
-              only: /^v.*/
+      - run:
+          name: Docker push (SHA1 tag)
+          command:
+            docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+      
+      - run:
+          name: Docker push release (only for tagged release based on master)
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ] && [ ! -z "${CIRCLE_TAG}" ]
+            then
+                docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+            else
+                echo "Not pushing release tag"
+            fi
