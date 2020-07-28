@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  architect: giantswarm/architect@0.10.1
-
 jobs:
   build:
     machine:
@@ -32,8 +29,8 @@ jobs:
   
       - run:
           name: Docker login
-          command:
-            echo -n "${QUAY_PASSWORD}" | docker login --username "${QUAY_USERNAME}" --password-stdin "$(echo -n 'quay.io/giantswarm/aws-cni' | cut -d/ -f1)"
+          command: |
+            echo -n "${QUAY_PASSWORD}" | docker login --username "${QUAY_USERNAME}" --password-stdin quay.io
 
       - run:
           name: Docker push (SHA1 tag)
