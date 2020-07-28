@@ -1,21 +1,49 @@
 version: 2.1
 
-orbs:
-  architect: giantswarm/architect@0.10.1
-
 jobs:
   build:
     machine:
       image: "ubuntu-1604:201903-01"
+    environment:
+
+      # Set this to the upstream version tag to use/build
+      UPSTREAM_TAG: v1.7.0-rc1
+
     steps:
       - checkout
+
       - run:
           name: Clone upstream repository
-          command: |
-            export UPSTREAM_TAG=v1.7.0-rc1
+          command:
             git clone -b $UPSTREAM_TAG --depth 1 https://github.com/aws/amazon-vpc-cni-k8s.git
+
       - run:
           name: Build Docker image
           command:
-            cd amazon-vpc-cni-k8s |
-            make docker
+            cd amazon-vpc-cni-k8s && make docker
+
+      - run:
+          name: Tag the image according to Giant Swarm convention
+          command:
+            docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+  
+      - run:
+          name: Docker login
+          command: |
+            echo -n "${QUAY_PASSWORD}" | docker login --username "${QUAY_USERNAME}" --password-stdin quay.io
+
+      - run:
+          name: Docker push (SHA1 tag)
+          command:
+            docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+      
+      - run:
+          name: Docker push release (only for tagged release based on master)
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ] && [ ! -z "${CIRCLE_TAG}" ]
+            then
+                docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+            else
+                echo "Not pushing release tag"
+            fi
