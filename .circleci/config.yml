@@ -47,3 +47,13 @@ jobs:
             else
                 echo "Not pushing release tag"
             fi
+
+workflows:
+  version: 2
+  build-and-push:
+    jobs:
+      - build:
+          filters:
+            # Trigger job also on git tag.
+            tags:
+              only: /^v.*/
