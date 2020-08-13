@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
 
+- New tagged releases will also trigger pushing of the image to the Aliyun registry in China.
 
 [Unreleased]: https://github.com/giantswarm/REPOSITORY_NAME/tree/master
