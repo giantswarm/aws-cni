@@ -48,6 +48,7 @@ jobs:
             then
                 docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
                 docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+                docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
                 docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
 
                 # China
