@@ -20,12 +20,15 @@ jobs:
       - run:
           name: Build Docker image
           command:
-            cd amazon-vpc-cni-k8s && make docker
+            cd amazon-vpc-cni-k8s
+            make docker
+            make docker-init
 
       - run:
           name: Tag the image according to Giant Swarm convention
           command:
             docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+            docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1
 
       - run:
           name: Docker login
@@ -36,6 +39,7 @@ jobs:
           name: Docker push (SHA1 tag)
           command:
             docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+            docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1
 
       - run:
           name: Docker push release (only for a tagged release)
@@ -44,10 +48,12 @@ jobs:
             then
                 docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
                 docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
 
                 # China
                 echo -n "${ALIYUN_PASSWORD}" | docker login --username "${ALIYUN_USERNAME}" --password-stdin registry-intl.cn-shanghai.aliyuncs.com
                 docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+                docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
             else
                 echo "Not pushing release tag"
             fi
