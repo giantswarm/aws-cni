@@ -7,7 +7,7 @@ jobs:
     environment:
 
       # Set this to the upstream version tag to use/build
-      UPSTREAM_TAG: v1.6.3
+      UPSTREAM_TAG: v1.7.2-rc1
 
     steps:
       - checkout
@@ -26,7 +26,7 @@ jobs:
           name: Tag the image according to Giant Swarm convention
           command:
             docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
-  
+
       - run:
           name: Docker login
           command: |
@@ -36,7 +36,7 @@ jobs:
           name: Docker push (SHA1 tag)
           command:
             docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
-      
+
       - run:
           name: Docker push release (only for a tagged release)
           command: |
