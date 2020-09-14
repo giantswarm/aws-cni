@@ -19,14 +19,14 @@ jobs:
 
       - run:
           name: Build Docker image
-          command:
+          command: |
             cd amazon-vpc-cni-k8s
             make docker
             make docker-init
 
       - run:
           name: Tag the image according to Giant Swarm convention
-          command:
+          command: |
             docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
             docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1
 
@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: Docker push (SHA1 tag)
-          command:
+          command: |
             docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
             docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1
 
