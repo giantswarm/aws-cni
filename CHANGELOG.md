@@ -9,8 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.10] - 2021-05-13
+
 ### Added
 
 - New tagged releases will also trigger pushing of the image to the Aliyun registry in China.
 
-[Unreleased]: https://github.com/giantswarm/REPOSITORY_NAME/tree/master
+[Unreleased]: https://github.com/giantswarm/aws-cni/compare/v1.7.10...HEAD
+[1.7.10]: https://github.com/giantswarm/aws-cni/releases/tag/v1.7.10
