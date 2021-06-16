@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated `aws-cni` to version 1.8.0.
+
 ## [1.7.10] - 2021-05-13
 
 ### Added
