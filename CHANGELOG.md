@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - 2021-07-28
+
 ### Changed
 
 - Updated `aws-cni` to version 1.9.0.
@@ -25,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New tagged releases will also trigger pushing of the image to the Aliyun registry in China.
 
-[Unreleased]: https://github.com/giantswarm/aws-cni/compare/v1.8.0...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-cni/compare/v1.9.0...HEAD
+[1.9.0]: https://github.com/giantswarm/aws-cni/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/giantswarm/aws-cni/compare/v1.7.10...v1.8.0
 [1.7.10]: https://github.com/giantswarm/aws-cni/releases/tag/v1.7.10
