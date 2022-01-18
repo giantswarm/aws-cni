@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add nftables-based image.
+
 ## [1.10.1] - 2022-01-03
 
 ### Changed
