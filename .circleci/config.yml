@@ -61,7 +61,7 @@ jobs:
                 docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1-nftables quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
                 docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
                 docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-nftables quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
-                docker quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
+                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
             
                 # China
                 echo -n "${ALIYUN_PASSWORD}" | docker login --username "${ALIYUN_USERNAME}" --password-stdin registry-intl.cn-shanghai.aliyuncs.com
