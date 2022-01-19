@@ -71,7 +71,7 @@ jobs:
                 docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-iptables
                 docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1-nftables registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
                 docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
-                docker tag registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-nftables registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
+                docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-nftables registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
                 docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
             else
                 echo "Not pushing release tag"
