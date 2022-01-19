@@ -27,8 +27,8 @@ jobs:
       - run:
           name: Tag the image according to Giant Swarm convention
           command: |
-            docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
-            docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1
+            docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1-iptables
+            docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-iptables
 
       - run:
           name: Create a second variant of the image using nftables instead of iptables legacy.
@@ -44,8 +44,8 @@ jobs:
       - run:
           name: Docker push (SHA1 tag)
           command: |
-            docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
-            docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1
+            docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1-iptables
+            docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-iptables
             docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1-nftables
             docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-nftables
 
@@ -54,21 +54,21 @@ jobs:
           command: |
             if [ ! -z "${CIRCLE_TAG}" ] && [ -z "${CIRCLE_BRANCH}" ]
             then
-                docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
-                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
-                docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
-                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
+                docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-iptables
+                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-iptables
+                docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-iptables
+                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-iptables
                 docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1-nftables quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
-                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-nftables:$CIRCLE_TAG
+                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
                 docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-nftables quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
-                docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
+                docker quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
             
                 # China
                 echo -n "${ALIYUN_PASSWORD}" | docker login --username "${ALIYUN_USERNAME}" --password-stdin registry-intl.cn-shanghai.aliyuncs.com
-                docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
-                docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
-                docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
-                docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG
+                docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-iptables
+                docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-iptables
+                docker tag amazon/amazon-k8s-cni-init:$UPSTREAM_TAG registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-iptables
+                docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-iptables
                 docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1-nftables registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
                 docker push registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
                 docker tag registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-nftables registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
