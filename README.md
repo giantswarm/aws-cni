@@ -1,4 +1,6 @@
+[![CircleCI](https://circleci.com/gh/giantswarm/aws-cni/tree/master.svg?style=svg)](https://circleci.com/gh/giantswarm/aws-cni/tree/master)
 [![Docker Repository on Quay](https://quay.io/repository/giantswarm/aws-cni/status "Docker Repository on Quay")](https://quay.io/repository/giantswarm/aws-cni)
+[![Docker Repository on Quay](https://quay.io/repository/giantswarm/aws-cni-init/status "Docker Repository on Quay")](https://quay.io/repository/giantswarm/aws-cni-init)
 
 # Build automation for AWS CNI
 
