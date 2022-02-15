@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated `aws-cni` to version 1.10.2.
 - Add nftables-based image.
 
 ## [1.10.1] - 2022-01-03
