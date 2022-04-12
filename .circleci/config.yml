@@ -7,7 +7,7 @@ jobs:
     environment:
 
       # Set this to the upstream version tag to use/build
-      UPSTREAM_TAG: v1.10.2
+      UPSTREAM_TAG: v1.10.3
 
     steps:
       - checkout
@@ -62,7 +62,7 @@ jobs:
                 docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-nftables
                 docker tag quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_SHA1-nftables quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
                 docker push quay.io/giantswarm/$CIRCLE_PROJECT_REPONAME-init:$CIRCLE_TAG-nftables
-            
+
                 # China
                 echo -n "${ALIYUN_PASSWORD}" | docker login --username "${ALIYUN_USERNAME}" --password-stdin registry-intl.cn-shanghai.aliyuncs.com
                 docker tag amazon/amazon-k8s-cni:$UPSTREAM_TAG registry-intl.cn-shanghai.aliyuncs.com/giantswarm/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG-iptables
